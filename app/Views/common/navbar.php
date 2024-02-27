@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link <?= $page_title=="Contacts" ? "active" : ""?>" href="<?= site_url('contact') ?>">Contacts</a>
+          <a class="nav-link <?= $page_title=="Contacts" ? "active" : ""?>" href="<?= site_url('karyakarta') ?>">Karyakarta</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $page_title=="New Contact" ? "active" : ""?>" href="<?= site_url('contact/new') ?>">New Contact</a>
+          <a class="nav-link <?= $page_title=="New Contact" ? "active" : ""?>" href="<?= site_url('karyakarta/new') ?>">New Karyakarta</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?= ($page_title!="Contacts")&&($page_title!="New Contact") ? "active" : ""?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,6 +20,7 @@
             <li><a class="dropdown-item" href="<?= site_url('nagar') ?>">Nagar</a></li>
             <li><a class="dropdown-item" href="<?= site_url('basti') ?>">Basti</a></li>
             <li><a class="dropdown-item" href="<?= site_url('mohalla') ?>">Mohalla</a></li>
+            <li><a class="dropdown-item" href="<?= site_url('dayitva') ?>">Dayitva</a></li>
           </ul>
         </li>
       </ul>

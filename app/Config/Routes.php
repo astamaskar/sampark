@@ -12,6 +12,10 @@ $routes->presenter('nagar', ['controller' => 'NagarController']);
 $routes->presenter('basti', ['controller' => 'BastiController']);
 $routes->presenter('mohalla', ['controller' => 'MohallaController']);
 $routes->presenter('contact', ['controller' => 'ContactController']);
+$routes->presenter('karyakarta', ['controller' => 'KaryakartaController']);
+$routes->presenter('dayitva', ['controller' => 'DayitvaController']);
+
+
 
 //Routes for login
 $routes->get('login', 'LoginController::index');
