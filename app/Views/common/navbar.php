@@ -19,7 +19,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= site_url('nagar') ?>">Nagar</a></li>
             <li><a class="dropdown-item" href="<?= site_url('basti') ?>">Basti</a></li>
-            <li><a class="dropdown-item" href="<?= site_url('mohalla') ?>">Mohalla</a></li>
+            <!-- <li><a class="dropdown-item" href="</?= site_url('mohalla') ?>">Mohalla</a></li> -->
             <li><a class="dropdown-item" href="<?= site_url('dayitva') ?>">Dayitva</a></li>
           </ul>
         </li>

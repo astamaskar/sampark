@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'ContactController::index');
+$routes->get('/', 'KaryakartaController::index');
 
 //Presenter Routes for controllers
 $routes->presenter('nagar', ['controller' => 'NagarController']);
