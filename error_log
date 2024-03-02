@@ -1,0 +1,5 @@
+[02-Mar-2024 05:39:53 UTC] PHP Warning:  require(/home/th9xzh3edskp/public_html/sampark/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /home/th9xzh3edskp/public_html/sampark/index.php on line 40
+[02-Mar-2024 05:39:53 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/th9xzh3edskp/public_html/sampark/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/th9xzh3edskp/public_html/sampark/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /home/th9xzh3edskp/public_html/sampark/index.php on line 40
