@@ -19,32 +19,34 @@ class KaryakartaController extends Controller
             // If not logged in, redirect to login page
             return redirect()->to('/login');
         } else {
-        $model = new KaryakartaModel();
-        $dayitvaModel = new DayitvaModel();
-        $bastiModel = new BastiModel();
-        $nagarModel = new NagarModel();
-        $karyakartas = $model->findAll();
 
-        $karyakartax = [];
-        $karyakartaBastiNagar = [];
-        foreach ($karyakartas as $karyakarta){
-            $karyakartaBastiNagar['id'] = $karyakarta['id'];
-            $karyakartaBastiNagar['name'] = $karyakarta['name'];
-            $karyakartaBastiNagar['mobile'] = $karyakarta['mobile'];
-            $karyakartaBastiNagar['dayitva'] = $dayitvaModel->where('id', $karyakarta['dayitva_id'])->first()['name'];
-            $karyakartaBasti = $bastiModel->where('id', $karyakarta['basti_id'])->first();
-            $karyakartaBastiNagar['basti_name'] = $karyakartaBasti['name'];
-            $karyakartaBastiNagar['nagar_name'] = $nagarModel->select('name')->where('id', $karyakartaBasti['nagar_id'])->first()['name'];
-            array_push($karyakartax, $karyakartaBastiNagar);
+            $model = new KaryakartaModel();
+            $dayitvaModel = new DayitvaModel();
+            $bastiModel = new BastiModel();
+            $nagarModel = new NagarModel();
+            $karyakartas = $model->findAll();
+
+            $karyakartax = [];
+            $karyakartaBastiNagar = [];
+            foreach ($karyakartas as $karyakarta){
+                $karyakartaBastiNagar['id'] = $karyakarta['id'];
+                $karyakartaBastiNagar['name'] = $karyakarta['name'];
+                $karyakartaBastiNagar['mobile'] = $karyakarta['mobile'];
+                $karyakartaBastiNagar['dayitva'] = $dayitvaModel->where('id', $karyakarta['dayitva_id'])->first()['name'];
+                $karyakartaBasti = $bastiModel->where('id', $karyakarta['basti_id'])->first();
+                $karyakartaBastiNagar['basti_name'] = $karyakartaBasti['name'];
+                $karyakartaBastiNagar['nagar_name'] = $nagarModel->select('name')->where('id', $karyakartaBasti['nagar_id'])->first()['name'];
+                array_push($karyakartax, $karyakartaBastiNagar);
+            }
+
+            $data = [
+                'page_title' => 'Karyakarta',
+                'karyakartax' => $karyakartax,
+            ];
+
+            return view('karyakarta/index', $data);
         }
-
-        $data = [
-            'page_title' => 'Karyakarta',
-            'karyakartax' => $karyakartax,
-        ];
-
-        return view('karyakarta/index', $data);
-    }}
+    }
 
     // Show the form for creating a new resource.
     public function new()
@@ -62,7 +64,7 @@ class KaryakartaController extends Controller
             $nagarDetails = $nagarModel->findAll();
             $bastiDetails = $bastiModel->where('nagar_id', $nagarDetails[0]['id'])->findAll(); // Fetch basti details
             $data = [
-                'page_title' => 'New karyakarta',
+                'page_title' => 'New Karyakarta',
                 'bastis' => $bastiDetails,
                 'nagars' => $nagarDetails,
                 'dayitvas' => $dayitvaDetails

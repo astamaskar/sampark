@@ -53,9 +53,8 @@ class NagarController extends BaseController
             // If not logged in, redirect to login page
             return redirect()->to('/login');
         } else {
-        $data = [
-
-            'page_title' => 'Create New Nagar',
+        $data =
+        [
             'name' => esc($this->request->getPost('name'))
         ];
         $this->nagarModel->insert($data);

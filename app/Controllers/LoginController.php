@@ -25,7 +25,7 @@ class LoginController extends Controller
             $session->set('isLoggedIn', true);
 
             // Redirect to a protected page
-            return redirect()->to('/contact');
+            return redirect()->to('/karyakarta');
         } else {
             // Invalid credentials, redirect back to login page with error message
             return redirect()->to('/login')->with('error', 'Invalid username or password');
