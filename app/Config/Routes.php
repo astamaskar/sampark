@@ -24,6 +24,7 @@ $routes->post('attendees/bynagar', 'AttendeesController::attendeesListByNagar');
 $routes->get('attendees/bydayitva', 'AttendeesController::attendeesSearchByDayitva'); //
 $routes->post('attendees/bydayitva', 'AttendeesController::attendeesListByDayitva');
 $routes->get('attendees/list', 'AttendeesController::index');
+$routes->get('attendees/report', 'AttendeesController::getAttendeesCount');
 
 
 
@@ -44,6 +45,7 @@ $routes->get('/getNagarBasti', 'CommonController::getNagarBasti');
 //Routes for QR Code
 $routes->post('qr/listbybasti', 'QRCodeController::listByBasti');
 $routes->get('qr/printbybasti', 'QRCodeController::printByBasti');
+$routes->get('qr/listall', 'QRCodeController::listAll');
 
 
 // Route to index action

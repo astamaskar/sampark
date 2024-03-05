@@ -41,45 +41,34 @@ class AttendeesController extends BaseController
     {
 
         $attendeesModel = new AttendeesModel();
+
+        if($attendeesModel->where('karyakarta_id', $id)->findAll())
+        {
+            return redirect()->to('AttendeesController/new')->with('success', 'You are already registered!');
+        }
+
         $karyakartaModel = new KaryakartaModel();
         $dayitvaModel = new DayitvaModel();
         $bastiModel = new BastiModel();
         $nagarModel = new NagarModel();
 
-        $karyakarta = $karyakartaModel->where('id', $id)->findall()[0];
-        if (!$attendeesModel->where('karyakarta_id', $karyakarta['id']))
-        {
-            $data =
+        $karyakarta = $karyakartaModel->find($id);
+        $data =
             [
                 'karyakarta_id' => $id,
                 'basti_id' => $karyakarta['basti_id'],
                 'nagar_id' => $bastiModel->where('id', $karyakarta['basti_id'])->first()['nagar_id'],
                 'dayitva_id' => $karyakarta['dayitva_id'],
             ];
-            if($attendeesModel->insert($data))
-            {
-                return redirect()->to('AttendeesController/new')->with('success', 'Welcome to Karyakarta Sammelan!');
-            } else {
-                return redirect()->back()->withInput()->with('error', 'Please provide appropriate inputs.');
-            }
-        } else {
-            return redirect()->to('AttendeesController/new')->with('success', 'You are already registered!');
+
+        if($attendeesModel->insert($data))
+        {
+            return redirect()->to('AttendeesController/new')->with('success', 'Welcome to Karyakarta Sammelan!');
         }
     }
 
 
-   /*  public function create()
-    {
-        echo view('attendees/create', ['page_title' => 'New Attendees']);
-    }
-
-    public function show($id)
-    {
-
-    }
-    */
-
-    public function attendeeDetails($attendees)
+    private function attendeeDetails($attendees)
     {
         $karyakartaModel = new KaryakartaModel();
         $dayitvaModel = new DayitvaModel();
@@ -110,19 +99,20 @@ class AttendeesController extends BaseController
         if (!$session->get('isLoggedIn')) {
             // If not logged in, redirect to login page
             return redirect()->to('/login');
-        } else {
+        }
             $nagarModel = new NagarModel();
             $bastiModel = new BastiModel();
             $nagarDetails = $nagarModel->findAll();
             $bastiDetails = $bastiModel->where('nagar_id', $nagarDetails[0]['id'])->findAll(); // Fetch basti details
-            $data = [
+            $data =
+            [
                 'page_title' => 'Upasthit',
                 'bastis' => $bastiDetails,
                 'nagars' => $nagarDetails,
-
             ];
 
-        }    return view('attendees/searchByBasti', $data);
+            return view('attendees/searchByBasti', $data);
+
     }
 
     public function attendeesListByBasti()
@@ -163,8 +153,9 @@ class AttendeesController extends BaseController
                 'nagars' => $nagarDetails,
 
             ];
+            return view('attendees/searchByNagar', $data);
 
-        }    return view('attendees/searchByNagar', $data);
+        }
     }
 
     public function attendeesListByNagar()
@@ -229,6 +220,61 @@ class AttendeesController extends BaseController
 
             return view('attendees/index', $data);
         }
+    }
+
+    public function getAttendeescount()
+    {
+        $kulApekshit = (new KaryakartaModel)->countAll();
+        $kulUpasthit = (new AttendeesModel)->countAll();
+
+        $nagarsDistinct = (new AttendeesModel)->distinct()->select('nagar_id')->countAll();
+        $bastisDistinct = (new AttendeesModel)->distinct()->select('basti_id')->countAll();
+
+        $nagars = (new NagarModel)->findAll();
+        $nagarsCount = 0;
+        $bastisCount = 0;
+        foreach ($nagars as $nagar)
+        {
+            $bastis = (new BastiModel)->where('nagar_id', $nagar['id'])->findAll();
+            $nagarUpasthit = (new AttendeesModel)->where('nagar_id', $nagar['id'])->countAll();
+            $nagarApekshit = 0;
+            $bastiCount = 0;
+            foreach ($bastis as $basti)
+            {
+                $bastiUpasthit = (new AttendeesModel)->where('basti_id', $basti['id'])->countAll();
+                $bastiApekshit = (new KaryakartaModel)->where('basti_id', $basti['id'])->countAll();
+                $nagarApekshit += $bastiApekshit;
+                $bastiData[$bastiCount] =
+                [
+                    'bastiName' => $basti['name'],
+                    'bastiUpasthit' => $bastiUpasthit,
+                    'bastiApekshit' => $bastiApekshit,
+                ];
+                ++$bastiCount;
+                ++$bastisCount;
+            }
+            $nagarsData[$nagarsCount] =
+            [
+                'name' => $nagar['name'],
+                'nagarApekshit' => $nagarApekshit,
+                'nagarUpasthit' => $nagarUpasthit,
+                'bastiCount' => $bastiCount,
+                'bastiData' => $bastiData,
+            ];
+            ++$nagarsCount;
+            $data =
+            [
+                'page_title' => 'Report',
+                'nagarsData' => $nagarsData,
+                'nagarsDistinct' => $nagarsDistinct,
+                'bastisDistinct' => $bastisDistinct,
+                'kulApekshit' => $kulApekshit,
+                'kulUpasthit' => $kulUpasthit,
+                'nagarsCount' => $nagarsCount,
+                'bastisCount' => $bastisCount,
+            ];
+        }
+        return view('prints/report', $data);
     }
  /*   public function update($id)
     {
