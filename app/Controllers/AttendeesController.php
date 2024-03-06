@@ -40,6 +40,12 @@ class AttendeesController extends BaseController
     public function edit($id)
     {
 
+        // Check if user is logged in
+        $session = session();
+        if (!$session->get('isLoggedIn')) {
+            // If not logged in, redirect to login page
+            return redirect()->to('/login');
+        }else {
         $attendeesModel = new AttendeesModel();
 
         if($attendeesModel->where('karyakarta_id', $id)->findAll())
@@ -65,6 +71,7 @@ class AttendeesController extends BaseController
         {
             return redirect()->to('AttendeesController/new')->with('success', 'Welcome to Karyakarta Sammelan!');
         }
+    }
     }
 
 
@@ -227,8 +234,8 @@ class AttendeesController extends BaseController
         $kulApekshit = (new KaryakartaModel)->countAll();
         $kulUpasthit = (new AttendeesModel)->countAll();
 
-        $nagarsDistinct = (new AttendeesModel)->distinct()->select('nagar_id')->countAll();
-        $bastisDistinct = (new AttendeesModel)->distinct()->select('basti_id')->countAll();
+        $nagarsDistinct = (new AttendeesModel)->select('nagar_id')->distinct()->findAll();
+        $bastisDistinct = (new AttendeesModel)->select('basti_id')->distinct()->findAll();
 
         $nagars = (new NagarModel)->findAll();
         $nagarsCount = 0;
@@ -236,19 +243,20 @@ class AttendeesController extends BaseController
         foreach ($nagars as $nagar)
         {
             $bastis = (new BastiModel)->where('nagar_id', $nagar['id'])->findAll();
-            $nagarUpasthit = (new AttendeesModel)->where('nagar_id', $nagar['id'])->countAll();
+            $nagarUpasthit = (new AttendeesModel)->where('nagar_id', $nagar['id'])->findAll();
             $nagarApekshit = 0;
             $bastiCount = 0;
             foreach ($bastis as $basti)
             {
-                $bastiUpasthit = (new AttendeesModel)->where('basti_id', $basti['id'])->countAll();
-                $bastiApekshit = (new KaryakartaModel)->where('basti_id', $basti['id'])->countAll();
-                $nagarApekshit += $bastiApekshit;
+                $bastiUpasthit = (new AttendeesModel)->where('basti_id', $basti['id'])->findAll();
+                $bastiApekshit = (new KaryakartaModel)->where('basti_id', $basti['id'])->findAll();
+                //print_r($bastiApekshit);
+                $nagarApekshit += count($bastiApekshit);
                 $bastiData[$bastiCount] =
                 [
                     'bastiName' => $basti['name'],
-                    'bastiUpasthit' => $bastiUpasthit,
-                    'bastiApekshit' => $bastiApekshit,
+                    'bastiUpasthit' => count($bastiUpasthit),
+                    'bastiApekshit' => count($bastiApekshit),
                 ];
                 ++$bastiCount;
                 ++$bastisCount;
@@ -257,24 +265,48 @@ class AttendeesController extends BaseController
             [
                 'name' => $nagar['name'],
                 'nagarApekshit' => $nagarApekshit,
-                'nagarUpasthit' => $nagarUpasthit,
+                'nagarUpasthit' => count($nagarUpasthit),
                 'bastiCount' => $bastiCount,
                 'bastiData' => $bastiData,
             ];
             ++$nagarsCount;
-            $data =
+
+        } // Nagar and Basti
+
+        $dayitvas = (new DayitvaModel)->findAll();
+
+        $dCount = 0;
+        foreach ($dayitvas as $dayitva)
+        {
+            $dApekshit = count((new KaryakartaModel)->where('dayitva_id', $dayitva['id'])->findAll());
+            $dUpasthit = count((new AttendeesModel)->where('dayitva_id', $dayitva['id'])->findAll());
+            $dayitvaData[$dCount++] =
+            [
+                'name' => $dayitva['name'],
+                'apekshit' => $dApekshit,
+                'upasthit' => $dUpasthit,
+            ];
+        }
+
+        $data =
             [
                 'page_title' => 'Report',
                 'nagarsData' => $nagarsData,
-                'nagarsDistinct' => $nagarsDistinct,
-                'bastisDistinct' => $bastisDistinct,
+                'nagarsDistinct' => count($nagarsDistinct),
+                'bastisDistinct' => count($bastisDistinct),
                 'kulApekshit' => $kulApekshit,
                 'kulUpasthit' => $kulUpasthit,
                 'nagarsCount' => $nagarsCount,
                 'bastisCount' => $bastisCount,
+                'dayitvaData' => $dayitvaData,
             ];
-        }
         return view('prints/report', $data);
+    }
+
+    public function thisDevice()
+    {
+        $deviceId = $this->request->getUserAgent();
+        print_r($deviceId);
     }
  /*   public function update($id)
     {

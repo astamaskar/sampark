@@ -15,6 +15,7 @@ class LoginController extends Controller
 
     public function authenticate()
     {
+        //session()->destroy();
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
@@ -25,7 +26,7 @@ class LoginController extends Controller
             $session->set('isLoggedIn', true);
 
             // Redirect to a protected page
-            return redirect()->to('/karyakarta');
+            return redirect()->to('attendees/report');
         } else {
             // Invalid credentials, redirect back to login page with error message
             return redirect()->to('/login')->with('error', 'Invalid username or password');

@@ -12,7 +12,6 @@ $routes->presenter('nagar', ['controller' => 'NagarController']);
 $routes->presenter('basti', ['controller' => 'BastiController']);
 //$routes->presenter('mohalla', ['controller' => 'MohallaController']);
 //$routes->presenter('contact', ['controller' => 'ContactController']);
-$routes->presenter('karyakarta', ['controller' => 'KaryakartaController']);
 $routes->presenter('dayitva', ['controller' => 'DayitvaController']);
 
 //attendees Rout
@@ -25,7 +24,17 @@ $routes->get('attendees/bydayitva', 'AttendeesController::attendeesSearchByDayit
 $routes->post('attendees/bydayitva', 'AttendeesController::attendeesListByDayitva');
 $routes->get('attendees/list', 'AttendeesController::index');
 $routes->get('attendees/report', 'AttendeesController::getAttendeesCount');
+$routes->get('attendees/device', 'AttendeesController::thisDevice');
 
+//Routes for Karyakarta
+$routes->presenter('karyakarta', ['controller' => 'KaryakartaController']);
+$routes->get('karyakartas/bybasti', 'KaryakartaController::searchByBasti');
+$routes->post('karyakartas/bybasti', 'KaryakartaController::listByBasti');
+$routes->get('karyakartas/bynagar', 'KaryakartaController::searchByNagar'); //
+$routes->post('karyakartas/bynagar', 'KaryakartaController::listByNagar');
+$routes->get('karyakartas/bydayitva', 'KaryakartaController::searchByDayitva'); //
+$routes->post('karyakartas/bydayitva', 'KaryakartaController::listByDayitva');
+$routes->get('karyakartas/list', 'KaryakartaController::index');
 
 
 

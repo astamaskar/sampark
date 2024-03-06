@@ -62,7 +62,7 @@ class QRCodeController extends BaseController
             $karyakartas = array();
             $bastiModel = new BastiModel();
             $karyakartaModel = new KaryakartaModel();
-            $basti_list = $bastiModel->findAll();
+            $basti_list = $bastiModel->where('id <', 65)->findAll();
             foreach ($basti_list as $basti)
             {
                 $list = $karyakartaModel->byBasti($basti['id']);
