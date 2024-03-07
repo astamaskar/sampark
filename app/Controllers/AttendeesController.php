@@ -50,7 +50,7 @@ class AttendeesController extends BaseController
 
         if($attendeesModel->where('karyakarta_id', $id)->findAll())
         {
-            return redirect()->to('AttendeesController/new')->with('success', 'You are already registered!');
+            return redirect()->to('AttendeesController/new')->with('error', 'आप पहले से ही पंजीकृत हैं ');
         }
 
         $karyakartaModel = new KaryakartaModel();
@@ -69,9 +69,9 @@ class AttendeesController extends BaseController
 
         if($attendeesModel->insert($data))
         {
-            return redirect()->to('AttendeesController/new')->with('success', 'Welcome to Karyakarta Sammelan!');
+            return redirect()->to('AttendeesController/new')->with('success', 'पंजीकरण सफल रहा !');
         }
-    }
+        }
     }
 
 
@@ -246,12 +246,14 @@ class AttendeesController extends BaseController
             $nagarUpasthit = (new AttendeesModel)->where('nagar_id', $nagar['id'])->findAll();
             $nagarApekshit = 0;
             $bastiCount = 0;
+            $bastiData = [];
             foreach ($bastis as $basti)
             {
                 $bastiUpasthit = (new AttendeesModel)->where('basti_id', $basti['id'])->findAll();
                 $bastiApekshit = (new KaryakartaModel)->where('basti_id', $basti['id'])->findAll();
                 //print_r($bastiApekshit);
                 $nagarApekshit += count($bastiApekshit);
+                unset($bastiData[$bastiCount]);
                 $bastiData[$bastiCount] =
                 [
                     'bastiName' => $basti['name'],
@@ -259,6 +261,7 @@ class AttendeesController extends BaseController
                     'bastiApekshit' => count($bastiApekshit),
                 ];
                 ++$bastiCount;
+
                 ++$bastisCount;
             }
             $nagarsData[$nagarsCount] =

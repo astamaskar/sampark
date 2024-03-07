@@ -3,58 +3,89 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h3>Kul Apekshit : <?= $kulApekshit; ?></h3>
-            <h3>Kul Upasthit : <?= $kulUpasthit; ?></h3>
+            <h4>कुल अपेक्षित : <?= $kulApekshit; ?></h4>
+            <h4>कुल उपस्थित : <?= $kulUpasthit; ?></h4>
         </div>
         <div class="col-md-4">
-            <h3>Apekshit Nagar : <?= $nagarsCount; ?></h3>
-            <h3>Upasthit Nagar : <?= $nagarsDistinct; ?></h3>
+            <h4>अपेक्षित नगर : <?= $nagarsCount; ?></h4>
+            <h4>उपस्थित नगर : <?= $nagarsDistinct; ?></h4>
         </div>
         <div class="col-md-4">
-            <h3>Apekshit Basti : <?= $bastisCount; ?></h3>
-            <h3>Upasthit Basti : <?= $bastisDistinct; ?></h3>
+            <h4>अपेक्षित बस्तियाँ : <?= $bastisCount; ?></h4>
+            <h4>उपस्थित बस्तियाँ : <?= $bastisDistinct; ?></h4>
         </div>
     </div>
     <hr>
+    <div class="row mt-4">
+                <div class="col-md-6 ">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>क्र.</th>
+                                <th>नगर</th>
+                                <th>अपेक्षित</th>
+                                <th>उपस्थित</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $count = 0; ?>
+                            <?php foreach ($nagarsData as $nagar): ?>
+                            <tr>
+                                <td><?= ++$count; ?></td>
+                                <td><?= $nagar['name'] ?></td>
+                                <td><?= $nagar['nagarApekshit'] ?></td>
+                                <td><?= $nagar['nagarUpasthit'] ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
     <?php $sr = 0; ?>
 
     <?php foreach ($nagarsData as $nagar): ?>
+        <hr>
         <div class="row mt-4">
-            <div class="col-md-3 ">
+            <div class="col-md-4 ">
                     <h3><?= ++$sr."."." ".$nagar['name']; ?></h3>
                 </div>
                 <div class="col-md-1">
                     <div class="text-center">
-                        <h5>Apekshit <?= $nagar['nagarApekshit']; ?></h5>
+                        <h5>अपेक्षित<br><?= $nagar['nagarApekshit']; ?></h5>
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="text-center">
-                        <h5>Upasthit <?= $nagar['nagarUpasthit']; ?></h5>
+                        <h5>उपस्थित<br><?= $nagar['nagarUpasthit']; ?></h5>
                     </div>
                 </div>
             </div>
             <hr>
 
+
+
             <div class="row mt-4">
-                <div class="col-md-5 ">
+                <div class="col-md-6 ">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Sr. No.</th>
-                                <th>Basti Name</th>
-                                <th>Apekshit</th>
-                                <th>Upasthit</th>
+                                <th>क्र.</th>
+                                <th>बस्ती </th>
+                                <th>अपेक्षित</th>
+                                <th>उपस्थित</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $count = 0; ?>
+                            <?php $count1 = 0; ?>
                             <?php foreach ($nagar['bastiData'] as $basti): ?>
                             <tr>
-                                <td><?= ++$count; ?></td>
+
+                                <td><?= ++$count1; ?></td></div>
                                 <td><?= $basti['bastiName'] ?></td>
                                 <td><?= $basti['bastiApekshit'] ?></td>
                                 <td><?= $basti['bastiUpasthit'] ?></td>
+
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -65,21 +96,21 @@
     <?php endforeach; ?>
 <hr>
     <div class="row mt-4">
-                <div class="col-md-5 ">
+                <div class="col-md-6 ">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Sr. No.</th>
-                                <th>Dayitva Name</th>
-                                <th>Apekshit</th>
-                                <th>Upasthit</th>
+                                <th>क्र.</th>
+                                <th>दायित्व</th>
+                                <th>अपेक्षित</th>
+                                <th>उपस्थित</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $count = 0; ?>
+                            <?php $count2 = 0; ?>
                             <?php foreach ($dayitvaData as $dayitva): ?>
                             <tr>
-                                <td><?= ++$count; ?></td>
+                                <td><?= ++$count2; ?></td>
                                 <td><?= $dayitva['name'] ?></td>
                                 <td><?= $dayitva['apekshit'] ?></td>
                                 <td><?= $dayitva['upasthit'] ?></td>

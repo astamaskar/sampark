@@ -34,6 +34,11 @@
                                 <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this karyakarta?')">Delete</button>
                             </form>
                         </div>
+                        <!-- Attend Button -->
+                        <div class="col-auto">
+                            <a href="<?= site_url("AttendeesController/edit/".$karyakarta['id']) ?>" class="btn btn-primary" target="_blank">Mark Present</a>
+                        </div>
+
                     </div>
                 </td>
             </tr>
@@ -44,3 +49,4 @@
 </div>
 </body>
 </html>
+()
