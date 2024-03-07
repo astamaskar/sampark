@@ -38,6 +38,7 @@ class BastiController extends Controller
 
         $data = [
             'page_title' => "Bastis",
+            'page_heading' => 'बस्ती सूची',
             //'result' => $query->getResult(),
             'bastis' => $bastis,
             'bastix' => $bastix,
@@ -58,7 +59,7 @@ class BastiController extends Controller
         } else {
         $nagarModel = new NagarModel();
         $nagarDetails = $nagarModel->findAll(); // Fetch Nagar details
-        return view('basti/create', ['nagars' => $nagarDetails, 'page_title' => 'New Basti']);
+        return view('basti/create', ['nagars' => $nagarDetails, 'page_title' => 'New Basti', 'page_heading' => 'नयी बस्ती']);
     }}
 
     // Store a newly created resource in storage.
@@ -93,6 +94,7 @@ class BastiController extends Controller
         $model = new BastiModel();
         $data = [
             'page_title' => 'Basti Details',
+            'page_heading' => 'बस्ती सूची',
             'basti' => $model->find($id),
         ];
 
@@ -113,6 +115,7 @@ class BastiController extends Controller
 
         $data = [
             'page_title' => 'Edit Basti',
+            'page_heading' => 'बस्ती सम्पादन',
             'basti' => $model->find($id),
             'nagars' => $nagarModel->findAll(),
         ];
@@ -136,7 +139,7 @@ class BastiController extends Controller
         ];
         $model->update($id, $data);
 
-        return redirect()->to('/basti')->with('success', 'Basti updated successfully');
+        return redirect()->to('/basti')->with('success', 'बस्ती संपादित की गई');
     }}
 
     // Remove the specified resource from storage.
@@ -151,6 +154,6 @@ class BastiController extends Controller
         $model = new BastiModel();
         $model->delete($id);
 
-        return redirect()->to('/basti')->with('success', 'Basti deleted successfully');
+        return redirect()->to('/basti')->with('success', 'बस्ती हटाई गई');
     }}
 }

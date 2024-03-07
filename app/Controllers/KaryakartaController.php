@@ -27,6 +27,7 @@ class KaryakartaController extends Controller
 
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (सभी)',
                 'karyakartax' => $karyakartax,
             ];
 
@@ -72,6 +73,7 @@ class KaryakartaController extends Controller
             $bastiDetails = $bastiModel->where('nagar_id', $nagarDetails[0]['id'])->findAll(); // Fetch basti details
             $data = [
                 'page_title' => 'New Karyakarta',
+                'page_heading' => 'नया कार्यकर्ता',
                 'bastis' => $bastiDetails,
                 'nagars' => $nagarDetails,
                 'dayitvas' => $dayitvaDetails
@@ -98,7 +100,7 @@ class KaryakartaController extends Controller
                 // Add other fields as needed
             ];
             if($model->insert($data)) {
-                return redirect()->to('/karyakarta')->with('success', 'Karyakarta created successfully');
+                return redirect()->to('/karyakarta')->with('success', 'नया कार्यकर्ता जोड़ा गया');
             } else {
                 return redirect()->back()->withInput()->with('error', 'Please provide appropriate inputs.');
             }
@@ -140,6 +142,7 @@ class KaryakartaController extends Controller
 
         $data = [
             'page_title' => 'Edit karyakarta',
+            'page_heading' => 'कार्यकर्ता सम्पादन',
             'thiskaryakarta' => $karyakartaModel->find($id),
             'thisBasti' => $bastiModel->where('id', $karyakarta['basti_id'])->first(),
             'thisNagar' => $nagarModel->where('id', $basti['nagar_id'])->first(),
@@ -203,6 +206,7 @@ class KaryakartaController extends Controller
 
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (नगरशः)',
                 'nagars' => $nagarDetails,
 
             ];
@@ -226,6 +230,7 @@ class KaryakartaController extends Controller
             $karyakartas = (new karyakartaModel)->havingIn('basti_id', $bastis)->findAll();
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (नगरशः)',
                 'karyakartax' => $this->karyakartaDetails($karyakartas),
             ];
 
@@ -248,6 +253,7 @@ class KaryakartaController extends Controller
             $data =
             [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (बस्तीशः)',
                 'bastis' => $bastiDetails,
                 'nagars' => $nagarDetails,
             ];
@@ -270,6 +276,7 @@ class KaryakartaController extends Controller
 
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (बस्तीशः)',
                 'karyakartax' => $this->karyakartaDetails($karyakartas),
             ];
 
@@ -290,6 +297,7 @@ class KaryakartaController extends Controller
 
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (दायित्वानुसार)',
                 'dayitvas' => $dayitvaDetails,
 
             ];
@@ -311,6 +319,7 @@ class KaryakartaController extends Controller
 
             $data = [
                 'page_title' => 'Karyakarta',
+                'page_heading' => 'कार्यकर्ता सूची (दायित्वानुसार)',
                 'karyakartax' => $this->karyakartaDetails($karyakarta),
             ];
 

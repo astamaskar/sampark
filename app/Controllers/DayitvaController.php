@@ -20,6 +20,7 @@ class DayitvaController extends BaseController
             $dayitva = new DayitvaModel();
             $data = [
                 'page_title' => 'Dayitva',
+                'page_heading' => 'दायित्व सूची',
                 'dayitvas' => $dayitva->findAll(),
 
             ];
@@ -35,7 +36,7 @@ class DayitvaController extends BaseController
             // If not logged in, redirect to login page
             return redirect()->to('/login');
         } else {
-            return view('dayitva/create',['page_title' => 'New Dayitva']);
+            return view('dayitva/create',['page_title' => 'New Dayitva', 'page_heading' => 'नया दायित्व']);
         }
     }
 
@@ -54,7 +55,7 @@ class DayitvaController extends BaseController
                 'name' => esc($this->request->getPost('name'))
             ];
             if($dayitva->insert($data)) {
-                return redirect()->to('/dayitva')->with('success', 'Dayitva created successfully');
+                return redirect()->to('/dayitva')->with('success', 'नया दायित्व जोड़ा गया');
             } else {
                 return redirect()->to('/dayitva')->with('error', 'Some error occurred. Please try again.');
             }
@@ -91,6 +92,7 @@ class DayitvaController extends BaseController
             $dayitva = new DayitvaModel();
             $data = [
                 'page_title' => 'Edit Dayitva',
+                'page_heading' => 'दायित्व सम्पादन',
                 'dayitva' => $dayitva->find($id)
             ];
             if ($data['dayitva'] == null) {
@@ -113,7 +115,7 @@ class DayitvaController extends BaseController
                 'name' => esc($this->request->getPost('name'))
             ];
             if($dayitva->update($id, $data)){
-                return redirect()->to('/dayitva')->with('success', 'Dayitva updated successfully');
+                return redirect()->to('/dayitva')->with('success', 'दायित्व संपादित किया गया');
             } else {
                 return redirect()->to('/dayitva')->with('error', 'Some error occurred. Please try again.');
             }
@@ -130,7 +132,7 @@ class DayitvaController extends BaseController
         } else {
             $dayitva = new DayitvaModel();
             if($dayitva->delete($id)){
-                return redirect()->to('/dayitva')->with('success', 'Dayitva deleted successfully');
+                return redirect()->to('/dayitva')->with('success', 'दायित्व हटाया गया');
             } else {
                 return redirect()->to('/dayitva')->with('error', 'Some error occurred. Please try again.');
             }

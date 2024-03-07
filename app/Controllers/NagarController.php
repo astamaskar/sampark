@@ -26,6 +26,7 @@ class NagarController extends BaseController
         } else {
         $data = [
             'page_title' => 'Nagars',
+            'page_heading' => 'नगर सूची',
             'nagars' => $this->nagarModel->findAll(),
 
         ];
@@ -41,7 +42,7 @@ class NagarController extends BaseController
             // If not logged in, redirect to login page
             return redirect()->to('/login');
         } else {
-        return view('nagar/create',['page_title' => 'New Nagar']);
+        return view('nagar/create',['page_title' => 'New Nagar', 'page_heading' => 'नया नगर']);
         }
     }
 
@@ -58,7 +59,7 @@ class NagarController extends BaseController
             'name' => esc($this->request->getPost('name'))
         ];
         $this->nagarModel->insert($data);
-        return redirect()->to('/nagar')->with('success', 'Nagar created successfully');
+        return redirect()->to('/nagar')->with('success', 'नगर जोड़ा गया');
         }
     }
 
@@ -72,6 +73,7 @@ class NagarController extends BaseController
         } else {
         $data = [
             'page_title' => 'Nagar Details',
+            'page_heading' => 'नगर सूची',
             'nagar' => $this->nagarModel->find($id),
         ];
         if ($data['nagar'] == null) {
@@ -91,6 +93,7 @@ class NagarController extends BaseController
         } else {
         $data = [
             'page_title' => 'Edit Nagar',
+            'page_heading' => 'नगर सम्पादन',
             'nagar' => $this->nagarModel->find($id)
         ];
         if ($data['nagar'] == null) {
@@ -112,7 +115,7 @@ class NagarController extends BaseController
             'name' => esc($this->request->getPost('name'))
         ];
         $this->nagarModel->update($id, $data);
-        return redirect()->to('/nagar')->with('success', 'Nagar updated successfully');
+        return redirect()->to('/nagar')->with('success', 'नगर संपादित किया गया');
     }}
 
     public function delete($id)
@@ -124,6 +127,6 @@ class NagarController extends BaseController
             return redirect()->to('/login');
         } else {
         $this->nagarModel->delete($id);
-        return redirect()->to('/nagar')->with('success', 'Nagar deleted successfully');
+        return redirect()->to('/nagar')->with('success', 'नगर हटाया गया');
     }}
 }

@@ -25,6 +25,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता सूची',
                 'karyakartax' => $this->attendeeDetails($attendees),
             ];
 
@@ -114,6 +115,7 @@ class AttendeesController extends BaseController
             $data =
             [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता बस्तीशः',
                 'bastis' => $bastiDetails,
                 'nagars' => $nagarDetails,
             ];
@@ -137,6 +139,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता बस्तीशः',
                 'karyakartax' => $this->attendeeDetails($attendees),
             ];
 
@@ -157,6 +160,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता नगरशः',
                 'nagars' => $nagarDetails,
 
             ];
@@ -180,6 +184,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता नगरशः',
                 'karyakartax' => $this->attendeeDetails($attendees),
             ];
 
@@ -200,6 +205,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता दायित्वानुसार',
                 'dayitvas' => $dayitvaDetails,
 
             ];
@@ -222,6 +228,7 @@ class AttendeesController extends BaseController
 
             $data = [
                 'page_title' => 'Upasthit',
+                'page_heading' => 'उपस्थित कार्यकर्ता दायित्वानुसार',
                 'karyakartax' => $this->attendeeDetails($attendees),
             ];
 
@@ -294,6 +301,7 @@ class AttendeesController extends BaseController
         $data =
             [
                 'page_title' => 'Report',
+                'page_heading' => 'उपस्थिति वृत्त',
                 'nagarsData' => $nagarsData,
                 'nagarsDistinct' => count($nagarsDistinct),
                 'bastisDistinct' => count($bastisDistinct),
